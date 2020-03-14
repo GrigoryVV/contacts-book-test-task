@@ -1,36 +1,33 @@
-import React, { useState, useEffect } from 'react';
-import * as axios from 'axios';
+import React from 'react';
+import Header from './components/Header/Header'
+import Main from './components/Main/Main';
+import { Container } from '@material-ui/core';
+import { connect } from 'react-redux';
+import { initializeApp } from './redux/contactsReducer';
 
 
-function App() {
+class App extends React.Component {
 
-  const [contacts, setContacts] = useState([]);
+  componentDidMount() {
+    this.props.initializeApp();
+  }
 
-  useEffect(() => {
-    axios.get('http://demo.sibers.com/users')
-      .then(response => setContacts(response.data));
-  }, []);
-
-  return (
-    <div className="App">
-      {
-        contacts.map(contact => <Contact 
-          key={contact.id} 
-          contact={contact}/>
-        )
-      }
-    </div>
-  );
+  render() {
+    return (
+      <div style={{flexGrow: 1}}>
+        <Header/>
+        <Container maxWidth='lg'>
+          <Main/>
+        </Container>
+      </div>
+    );
+  }
 }
 
-function Contact({contact}) {
-  return (
-    <div>
-      <span>{contact.name}</span>
-      <span>{contact.email}</span>
-      <span>{contact.phone}</span>
-    </div>
-  );
+const mapStateToProps = (state) => {
+  return {
+    isInit: state.contacts.isInit
+  };
 }
 
-export default App;
+export default connect(mapStateToProps, { initializeApp })(App);
