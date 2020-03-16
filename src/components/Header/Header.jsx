@@ -1,16 +1,14 @@
 import React from 'react';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
-import IconButton from '@material-ui/core/IconButton';
 import Typography from '@material-ui/core/Typography';
 import InputBase from '@material-ui/core/InputBase';
 import { fade, makeStyles } from '@material-ui/core/styles';
 import Icon from '@material-ui/core/Icon';
+import { connect } from 'react-redux';
+import { setSearch } from '../../redux/contactsReducer';
 
 const useStyles = makeStyles(theme => ({
-  menuButton: {
-    marginRight: theme.spacing(2),
-  },
   title: {
     flexGrow: 1,
     display: 'none',
@@ -57,20 +55,12 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
-export default function Header() {
+function Header(props) {
   const classes = useStyles();
 
   return (
     <AppBar position="static">
       <Toolbar>
-        <IconButton
-          edge="start"
-          className={classes.menuButton}
-          color="inherit"
-          aria-label="Show favorites"
-        >
-          <Icon>favorite</Icon>
-        </IconButton>
         <Typography className={classes.title} variant="h6" noWrap>
           Contacts Book
         </Typography>
@@ -80,6 +70,8 @@ export default function Header() {
           </div>
           <InputBase
             placeholder="Search…"
+            value={props.search}
+            onChange={(e) => props.setSearch(e.target.value)}
             classes={{
               root: classes.inputRoot,
               input: classes.inputInput,
@@ -91,3 +83,11 @@ export default function Header() {
     </AppBar>
   );
 }
+
+const mapStateToProps = (state) => {
+  return {
+    search: state.contacts.search
+  };
+}
+
+export default connect(mapStateToProps, { setSearch })(Header)

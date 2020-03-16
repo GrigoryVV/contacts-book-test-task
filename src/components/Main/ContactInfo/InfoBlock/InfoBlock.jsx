@@ -4,7 +4,7 @@ import { Typography, makeStyles } from '@material-ui/core';
 const useStyles = makeStyles(theme => ({
     infoContainer: {
         margin: '16px 24px',
-        textAlign: 'start',
+        textAlign: 'left',
     },
     title: {
         paddingLeft: theme.spacing(2),
