@@ -3,7 +3,7 @@ This is a completed test task the contact book project.
 
 ## Technologies I used
 
-This is a *React* application according to the test task.<br/>
+This is a *React* application according to the test task and was created with *Create React App* command.<br/>
 I decided to use *Redux* for state managment because it's a very common approach and I wanted to demonstrate my ability to work with this library.
 Alternatively, I could place state inside the App component and implement required methods there.<br/>
 Also I used *Redux-Thunk* for fullfilment Redux data flow.<br/>
